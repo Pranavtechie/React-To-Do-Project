@@ -9,26 +9,36 @@ export default function Todos({
 }) {
   const [isEditing, setIsEditing] = useState(false);
   const [isChecked, setIsChecked] = useState(currentChecked);
+  const [todoText, setTodoText] = useState(text);
   const focusInput = useCallback((inputElement) => {
     if (inputElement) {
       inputElement.focus();
       // for setting the cursor to the end
-      inputElement.selectionStart = text.length;
-      inputElement.selectionEnd = text.length;
+      inputElement.selectionStart = todoText.length;
+      inputElement.selectionEnd = todoText.length;
     }
   });
+
+  function sendTodoUpdate(e) {
+    e?.preventDefault();
+    setIsEditing(false);
+    updateTodo(id, todoText, isChecked);
+  }
 
   return (
     <>
       <div key={id} style={{ display: "flex" }}>
         <input type="checkbox" onChange={() => setIsChecked((cur) => !cur)} />
-        <p
-          contentEditable={isEditing ? true : false}
-          ref={focusInput}
-          style={isChecked ? { textDecoration: "line-through" } : {}}
-        >
-          {text}&nbsp;&nbsp;&nbsp;
-        </p>
+        <form onSubmit={sendTodoUpdate}>
+          <input
+            type="text"
+            disabled={isEditing ? false : true}
+            ref={focusInput}
+            onChange={(e) => setTodoText(e.target.value)}
+            style={isChecked ? { textDecoration: "line-through" } : {}}
+            value={todoText}
+          />
+        </form>
       </div>
       <div>
         {isChecked ? (
@@ -43,8 +53,7 @@ export default function Todos({
             {isEditing ? (
               <button
                 onClick={() => {
-                  setIsEditing(false);
-                  updateTodo(id, text, isChecked);
+                  sendTodoUpdate();
                 }}
               >
                 Save Changes

@@ -5,7 +5,6 @@ import Todo from "./components/Todo";
 function App() {
   const [todos, setTodos] = useState([]);
   const [todoInput, setTodoInput] = useState("");
-  // const [checked, SetChecked] = useState(false);
 
   function handleNewTodo(e) {
     e.preventDefault();
@@ -14,12 +13,10 @@ function App() {
       { id: Date.now(), text: todoInput, isChecked: false },
     ]);
     setTodoInput("");
-    console.log(todos);
   }
 
   function deleteTodo(id) {
     setTodos((todos) => todos.filter((todo) => todo.id !== id));
-    console.log("function call");
   }
 
   function updateTodo(id, text, isChecked) {
@@ -31,7 +28,6 @@ function App() {
 
   return (
     <div>
-      {/* <input type="checkbox" onChange={(e) => SetChecked(!)} /> */}
       <form onSubmit={handleNewTodo}>
         <input
           type="text"
