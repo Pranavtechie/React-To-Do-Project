@@ -1,0 +1,4 @@
+terminal-one: |
+  yarn install 
+  yarn dev
+tabs: ["src/main.jsx", "src/components/Todo.jsx"]
