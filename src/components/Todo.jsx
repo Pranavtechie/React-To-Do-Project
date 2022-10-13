@@ -1,5 +1,7 @@
 import React, { useState, useCallback } from "react";
 
+// TODO : add Ctrl + K hotkey to set the focus to the input field to create a new task
+// TODO: persist tasks in local storage.
 export default function Todos({
   id,
   text,
@@ -10,10 +12,11 @@ export default function Todos({
   const [isEditing, setIsEditing] = useState(false);
   const [isChecked, setIsChecked] = useState(currentChecked);
   const [todoText, setTodoText] = useState(text);
+
   const focusInput = useCallback((inputElement) => {
     if (inputElement) {
       inputElement.focus();
-      // for setting the cursor to the end
+      // for setting the cursor to the end of the current text in the input field
       inputElement.selectionStart = todoText.length;
       inputElement.selectionEnd = todoText.length;
     }
