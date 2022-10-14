@@ -49,7 +49,7 @@ function App() {
           type="text"
           id="todo-input"
           value={todoInput}
-          autoComplete={false}
+          autoComplete="off"
           onChange={(e) => setTodoInput(e.target.value)}
         />
       </form>
